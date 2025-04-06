@@ -3,6 +3,8 @@ package com.houssem.pcs.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.houssem.pcs.entities.Pc;
@@ -43,6 +45,12 @@ public class PcServicempl implements PcService{
 	public List<Pc> getAllPcs() {
 		
 		return pcRepository.findAll();
+	}
+
+	@Override
+	public Page<Pc> getAllPcsParPage(int page, int size) {
+		
+		return pcRepository.findAll(PageRequest.of(page, size));
 	}
 
 }
