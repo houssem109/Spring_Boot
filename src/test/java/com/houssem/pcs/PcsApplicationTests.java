@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 
+import com.houssem.pcs.entities.Marque;
 import com.houssem.pcs.entities.Pc;
 import com.houssem.pcs.repos.PcRepository;
 import com.houssem.pcs.service.PcService;
@@ -66,7 +67,7 @@ class PcsApplicationTests {
 			System.out.println(p);
 		}
 	}
-	
+
 	@Test
 	public void testFindByMarquePcContains() {
 		Page<Pc> pcs = pcService.getAllPcsParPage(0, 2);
@@ -100,4 +101,47 @@ class PcsApplicationTests {
 			System.out.println(p);
 		}
 	}
+
+	@Test
+	public void testfindByModelePrix() {
+		List<Pc> pcs = pcRepository.findByModelePrix("GF63", 900.0);
+		for (Pc p : pcs) {
+			System.out.println(p);
+		}
+	}
+
+	@Test
+	public void testfindByMarque() {
+		Marque mar = new Marque();
+		mar.setIdMarque(4L);
+		List<Pc> pcs = pcRepository.findByMarque(mar);
+		for (Pc p : pcs) {
+			System.out.println(p);
+		}
+	}
+
+	@Test
+	public void findByMarqueIdMarque() {
+		List<Pc> pcs = pcRepository.findByMarqueIdMarque(4L);
+		for (Pc p : pcs) {
+			System.out.println(p);
+		}
+	}
+
+	@Test
+	public void findByOrderByModeleAsc() {
+		List<Pc> pcs = pcRepository.findByOrderByModeleAsc();
+		for (Pc p : pcs) {
+			System.out.println(p);
+		}
+	}
+
+	@Test
+	public void trierModelePrix() {
+		List<Pc> pcs = pcRepository.trierModelePrix();
+		for (Pc p : pcs) {
+			System.out.println(p);
+		}
+	}
+
 }

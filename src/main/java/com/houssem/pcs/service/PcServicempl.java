@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.houssem.pcs.entities.Marque;
 import com.houssem.pcs.entities.Pc;
 import com.houssem.pcs.repos.PcRepository;
 @Service
@@ -45,6 +46,40 @@ public class PcServicempl implements PcService{
 	public List<Pc> getAllPcs() {
 		
 		return pcRepository.findAll();
+	}
+	@Override
+	public List<Pc> findByModele(String modele) {
+		return pcRepository.findByModele(modele);
+	}
+
+	@Override
+	public List<Pc> findByModeleContains(String modele) {
+		return pcRepository.findByModeleContains(modele);
+	}
+
+	@Override
+	public List<Pc> findByModelePrix(String modele, Double prix) {
+		return pcRepository.findByModelePrix(modele,prix);
+	}
+
+	@Override
+	public List<Pc> findByMarque(Marque marque) {
+		return pcRepository.findByMarque(marque);
+	}
+
+	@Override
+	public List<Pc> findByMarqueIdMarque(Long id) {
+		return pcRepository.findByMarqueIdMarque(id);
+	}
+
+	@Override
+	public List<Pc> findByOrderByModeleAsc() {
+		return pcRepository.findByOrderByModeleAsc();
+	}
+
+	@Override
+	public List<Pc> trierModelePrix() {
+		return pcRepository.trierModelePrix();
 	}
 
 	@Override

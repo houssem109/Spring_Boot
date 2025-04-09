@@ -136,10 +136,19 @@ public class Pc {
 
 	@Override
 	public String toString() {
-		return "Pc [idPc=" + idPc + ", marque=" + marque + ", modele=" + modele + ", processeur=" + processeur
-				+ ", memoireRAM=" + memoireRAM + ", capaciteStockage=" + capaciteStockage + ", carteGraphique="
-				+ carteGraphique + ", systemeExploitation=" + systemeExploitation + ", prix=" + prix + ", dateAchat="
-				+ dateAchat + ", email=" + email + "]";
+	    return "Pc [idPc=" + idPc + 
+	           ", marque=" + (marque != null ? marque.getNomMarque() : "null") + 
+	           ", modele=" + modele + 
+	           ", processeur=" + processeur +
+	           ", memoireRAM=" + memoireRAM + 
+	           ", capaciteStockage=" + capaciteStockage + 
+	           ", carteGraphique=" + carteGraphique +
+	           ", systemeExploitation=" + systemeExploitation + 
+	           ", prix=" + prix + 
+	           ", dateAchat=" + dateAchat +
+	           ", email=" + email + "]";
 	}
+
+	
 
 }

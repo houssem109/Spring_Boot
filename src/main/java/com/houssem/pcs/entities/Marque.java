@@ -2,6 +2,8 @@ package com.houssem.pcs.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,17 +25,13 @@ public class Marque {
 	private Long idMarque;
 	
 	private String nomMarque;
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "marque")
 	private List<Pc> pcs;
 
 	
 	
 	
-	public Marque() {
-		super();
-
-	}
 
 
 	public Long getIdMarque() {

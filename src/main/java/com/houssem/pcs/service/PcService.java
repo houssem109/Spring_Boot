@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
+import com.houssem.pcs.entities.Marque;
 import com.houssem.pcs.entities.Pc;
 
 public interface PcService {
@@ -19,5 +20,16 @@ public interface PcService {
 
 	List<Pc> getAllPcs();
 
+	List<Pc> findByModele(String modele);
+	List<Pc> findByModeleContains(String modele);
+	List<Pc> findByModelePrix (String modele, Double prix);
+	List<Pc> findByMarque (Marque marque);
+	List<Pc> findByMarqueIdMarque(Long id);
+	List<Pc> findByOrderByModeleAsc();
+	List<Pc> trierModelePrix ();
+	
+	
+	
 	Page<Pc> getAllPcsParPage(int page, int size);
+	
 }
