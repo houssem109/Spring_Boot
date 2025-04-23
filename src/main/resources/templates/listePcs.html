@@ -39,7 +39,7 @@
 						</tr>
 						<tr th:each="p:${pcs}">
 							<td th:text="${p.idPc}"></td>
-							<td th:text="${p.marque}"></td>
+							<td th:text="${p.marque != null ? p.marque.nomMarque : ''}"></td>
 							<td th:text="${p.modele}"></td>
 							<td th:text="${p.processeur}"></td>
 							<td th:text="${p.memoireRAM}"></td>
@@ -49,7 +49,9 @@
 							<td th:text="${p.prix}"></td>
 							<td th:text="${#dates.format(p.dateAchat, 'dd-MM-yyyy')}"></td>
 							<td th:text="${p.email}"></td>
-							<td><a class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')" th:href="@{supprimerPc(id=${p.idPc},
+							<td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-success"
+							th:href="@{modifierPc(id=${p.idPc},page=${currentPage},size=${size})}">Editer</a></td>
+							<td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')" th:href="@{supprimerPc(id=${p.idPc},
 						page=${currentPage},size=${size})}">Supprimer</a></td>
 
 

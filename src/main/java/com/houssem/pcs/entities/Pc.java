@@ -2,11 +2,20 @@ package com.houssem.pcs.entities;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Pc {
@@ -29,17 +38,48 @@ public class Pc {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idPc;
 
+	@NotNull
 	@ManyToOne
 	private Marque marque;
-	
+
+	@NotNull
+	@Size(min = 2, max = 30)
 	private String modele;
+
+	@NotNull
+	@Size(min = 2, max = 50)
 	private String processeur;
+
+	@NotNull
+	@Min(value = 1)
+	@Max(value = 128)
 	private int memoireRAM;
+
+	@NotNull
+	@Min(value = 128)
+	@Max(value = 10000)
 	private int capaciteStockage;
+
+	@Size(max = 100)
+	@NotNull
 	private String carteGraphique;
+
+	@NotNull
+	@Size(min = 2, max = 50)
 	private String systemeExploitation;
+
+	@NotNull
+	@Min(value = 200)
+	@Max(value = 10000)
 	private double prix;
+
+	@NotNull
+	@PastOrPresent
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dateAchat;
+
+	@NotNull
 	private String email;
 
 	public Pc() {
@@ -136,19 +176,10 @@ public class Pc {
 
 	@Override
 	public String toString() {
-	    return "Pc [idPc=" + idPc + 
-	           ", marque=" + (marque != null ? marque.getNomMarque() : "null") + 
-	           ", modele=" + modele + 
-	           ", processeur=" + processeur +
-	           ", memoireRAM=" + memoireRAM + 
-	           ", capaciteStockage=" + capaciteStockage + 
-	           ", carteGraphique=" + carteGraphique +
-	           ", systemeExploitation=" + systemeExploitation + 
-	           ", prix=" + prix + 
-	           ", dateAchat=" + dateAchat +
-	           ", email=" + email + "]";
+		return "Pc [idPc=" + idPc + ", marque=" + (marque != null ? marque.getNomMarque() : "null") + ", modele="
+				+ modele + ", processeur=" + processeur + ", memoireRAM=" + memoireRAM + ", capaciteStockage="
+				+ capaciteStockage + ", carteGraphique=" + carteGraphique + ", systemeExploitation="
+				+ systemeExploitation + ", prix=" + prix + ", dateAchat=" + dateAchat + ", email=" + email + "]";
 	}
-
-	
 
 }

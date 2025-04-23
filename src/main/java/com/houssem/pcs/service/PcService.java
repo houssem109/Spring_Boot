@@ -31,5 +31,6 @@ public interface PcService {
 	
 	
 	Page<Pc> getAllPcsParPage(int page, int size);
-	
+	List<Marque> getAllMarques();
+
 }

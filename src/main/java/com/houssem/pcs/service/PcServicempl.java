@@ -9,12 +9,16 @@ import org.springframework.stereotype.Service;
 
 import com.houssem.pcs.entities.Marque;
 import com.houssem.pcs.entities.Pc;
+import com.houssem.pcs.repos.MarqueRepository;
 import com.houssem.pcs.repos.PcRepository;
 @Service
 public class PcServicempl implements PcService{
 
 	@Autowired
 	PcRepository pcRepository;
+	
+	@Autowired
+	MarqueRepository marqueRepository;
 	
 	@Override
 	public Pc savePc(Pc p) {
@@ -86,6 +90,12 @@ public class PcServicempl implements PcService{
 	public Page<Pc> getAllPcsParPage(int page, int size) {
 		
 		return pcRepository.findAll(PageRequest.of(page, size));
+	}
+
+	@Override
+	public List<Marque> getAllMarques() {
+		return marqueRepository.findAll();
+
 	}
 
 }

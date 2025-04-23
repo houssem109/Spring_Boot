@@ -32,39 +32,6 @@ public class Marque {
 	
 	
 	
-
-
-	public Long getIdMarque() {
-		return idMarque;
-	}
-
-
-	public void setIdMarque(Long idMarque) {
-		this.idMarque = idMarque;
-	}
-
-
-	public String getNomMarque() {
-		return nomMarque;
-	}
-
-
-	public void setNomMarque(String nomMarque) {
-		this.nomMarque = nomMarque;
-	}
-
-
-	public List<Pc> getPcs() {
-		return pcs;
-	}
-
-
-	public void setPcs(List<Pc> pcs) {
-		this.pcs = pcs;
-	}
-	
-	
-
 	
 	
 }
