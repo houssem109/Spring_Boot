@@ -1,13 +1,17 @@
 package com.houssem.pcs.security;
+import javax.sql.DataSource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 
@@ -21,25 +25,43 @@ public class SecurityConfig {
 	 return new BCryptPasswordEncoder();
 	 }
 	
+	
+	/*
+	@Bean
+	public UserDetailsService userDetailsService(DataSource dataSource) {
+	JdbcUserDetailsManager jdbcUserDetailsManager =new
+	JdbcUserDetailsManager(dataSource);
+
+	jdbcUserDetailsManager.setUsersByUsernameQuery("select username ,password, enabled from user where username =?");
+	jdbcUserDetailsManager.setAuthoritiesByUsernameQuery("SELECT u.username, r.role as authority " +
+	 "FROM user_role ur, user u , role r " + "WHERE u.user_id = ur.user_id AND ur.role_id = r.role_id AND u.username = ?");
+
+	 return jdbcUserDetailsManager;
+	 }
+	
+	*/
+	
 	@Bean
 	SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception
 	{
-	 http.authorizeHttpRequests((requests)->requests
+	    http
+	    .csrf(csrf -> csrf.disable())  // Explicitly disable CSRF(Cross-Site Request Forgery)
+	    .authorizeHttpRequests(requests -> requests
+	        .requestMatchers("/api/**").permitAll()  
+	        .requestMatchers("/showCreate","/savePc","/listePcs").hasAnyAuthority("ADMIN","AGENT","USER")
+	        .requestMatchers("/modifierPc","/supprimerPc").hasAuthority("ADMIN")
+	        .requestMatchers("/login","/webjars/**").permitAll()
+	        .anyRequest().authenticated())
+	    .formLogin(formLogin -> formLogin
+	        .loginPage("/login")
+	        .defaultSuccessUrl("/"))
+	    .httpBasic(Customizer.withDefaults())
+	    .exceptionHandling(exception ->
+	        exception.accessDeniedPage("/accessDenied"));
 
-	.requestMatchers("/showCreate","/savePc").hasAnyAuthority("ADMIN","AGENT")
-	.requestMatchers("/showCreate","/savePc","/modifierPc","/supprimerPc").hasAuthority("ADMIN")
-
-	.requestMatchers("/listePcs").hasAnyAuthority("ADMIN","AGENT","USER")
-	.anyRequest().authenticated())
-
-	 .formLogin(Customizer.withDefaults())
-	 .httpBasic(Customizer.withDefaults())
-	 .exceptionHandling((exception)->
-	 exception.accessDeniedPage("/accessDenied"));
-
-	 return http.build();
+	    return http.build();
 	}
-
+	/*
 	 @Bean
 	 public InMemoryUserDetailsManager userDetailsService() {
 		 PasswordEncoder passwordEncoder = passwordEncoder ();
@@ -63,4 +85,8 @@ public class SecurityConfig {
 
 				 return new InMemoryUserDetailsManager(admin, userHoussem,user1);
 				 }
+	 
+	 
+	 */
+	 
 }

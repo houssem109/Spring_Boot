@@ -4,22 +4,23 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
+import com.houssem.pcs.dto.PcDTO;
 import com.houssem.pcs.entities.Marque;
 import com.houssem.pcs.entities.Pc;
 
 public interface PcService {
-	Pc savePc(Pc p);
-
-	Pc updatePc(Pc p);
+	
+	
+	PcDTO updatePc(PcDTO p);
+	PcDTO savePc(PcDTO p);
+	PcDTO getPc(Long id);
+	List<PcDTO> getAllPcs();
 
 	void deletePc(Pc p);
 
 	void deletePcById(Long id);
 
-	Pc getPc(Long id);
-
-	List<Pc> getAllPcs();
-
+	
 	List<Pc> findByModele(String modele);
 	List<Pc> findByModeleContains(String modele);
 	List<Pc> findByModelePrix (String modele, Double prix);
@@ -28,9 +29,11 @@ public interface PcService {
 	List<Pc> findByOrderByModeleAsc();
 	List<Pc> trierModelePrix ();
 	
-	
-	
 	Page<Pc> getAllPcsParPage(int page, int size);
 	List<Marque> getAllMarques();
+
+	PcDTO convertEntityToDto (Pc p);
+	
+	Pc convertDtoToEntity(PcDTO pcDTO);
 
 }

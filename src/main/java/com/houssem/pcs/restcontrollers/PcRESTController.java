@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.houssem.pcs.service.PcService;
+import com.houssem.pcs.dto.PcDTO;
 import com.houssem.pcs.entities.Pc;
 
 @RestController
@@ -19,24 +20,24 @@ public class PcRESTController {
 	PcService pcService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	List<Pc>getAllPcs(){
+	List<PcDTO> getAllPcs(){
 		return pcService.getAllPcs();
 		
 	}
 	
 	@RequestMapping(value="/{id}",method = RequestMethod.GET)
-	public Pc getPcById(@PathVariable("id") Long id) {
+	public PcDTO getPcById(@PathVariable("id") Long id) {
 		return pcService.getPc(id);
 		 }
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public Pc createPc(@RequestBody Pc pc) {
-		return pcService.savePc(pc);
+	public PcDTO createPc(@RequestBody PcDTO pcdto) {
+		return pcService.savePc(pcdto);
 		}
 	
 	@RequestMapping(method = RequestMethod.PUT)
-	public Pc updatePc(@RequestBody Pc pc) {
-		return pcService.updatePc(pc);
+	public PcDTO updatePc(@RequestBody PcDTO pcdto) {
+		return pcService.updatePc(pcdto);
 		}
 	@RequestMapping(value="/{id}",method = RequestMethod.DELETE)
 	public void deletePc(@PathVariable("id") Long id)

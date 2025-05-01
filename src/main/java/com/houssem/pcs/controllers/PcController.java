@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.houssem.pcs.dto.PcDTO;
 import com.houssem.pcs.entities.Marque;
 import com.houssem.pcs.entities.Pc;
 import com.houssem.pcs.service.PcService;
@@ -46,7 +47,7 @@ public class PcController {
 	}
 
 	@RequestMapping("/savePc")
-	public String savePc(@Valid Pc pc, BindingResult bindingResult, ModelMap modelMap,
+	public String savePc(@Valid PcDTO pc, BindingResult bindingResult, ModelMap modelMap,
 			@RequestParam(name = "page", defaultValue = "0") int page,
 			@RequestParam(name = "size", defaultValue = "2") int size) {
 
@@ -94,7 +95,7 @@ public class PcController {
 	public String editerPc(@RequestParam("id") Long id, ModelMap modelMap,
 			@RequestParam(name = "page", defaultValue = "0") int page,
 			@RequestParam(name = "size", defaultValue = "2") int size) {
-		Pc p = pcService.getPc(id);
+		PcDTO p = pcService.getPc(id);
 		List<Marque> mars = pcService.getAllMarques();
 
 		modelMap.addAttribute("pc", p);
@@ -106,7 +107,7 @@ public class PcController {
 	}
 
 	@RequestMapping("/updatePc")
-	public String updatePc(@ModelAttribute("pc") Pc pc, @RequestParam("date") String date, ModelMap modelMap)
+	public String updatePc(@ModelAttribute("pc") PcDTO pc, @RequestParam("date") String date, ModelMap modelMap)
 			throws ParseException {
 		// conversion de la date
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
@@ -114,7 +115,7 @@ public class PcController {
 		pc.setDateAchat(dateCreation);
 
 		pcService.updatePc(pc);
-		List<Pc> pcs = pcService.getAllPcs();
+		List<PcDTO> pcs = pcService.getAllPcs();
 		modelMap.addAttribute("pcs", pcs);
 		return "listePcs";
 	}
